@@ -22,8 +22,24 @@ export default function LocationPicker() {
         fetcher
     );
     if (error) return <div>Failed to load countries.</div>;
+
+    const handleChange = (value: any) => {
+        if (value === "current") {
+            if ("geolocation" in navigator) {
+                // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+                navigator.geolocation.getCurrentPosition(({ coords }) => {
+                    const { latitude, longitude } = coords;
+                    localStorage.setItem("latitude", latitude.toString());
+                    localStorage.setItem("longitude", longitude.toString());
+                });
+            } else {
+                alert("Your browser does not support geolocation.");
+            }
+        }
+    };
+
     return (
-        <Select>
+        <Select onValueChange={handleChange}>
             <SelectTrigger className="w-[200px]">
                 <SelectValue placeholder="Choose Location" />
             </SelectTrigger>
@@ -31,14 +47,15 @@ export default function LocationPicker() {
                 {!data && <SelectItem>Loading...</SelectItem>}
                 {data && (
                     <SelectGroup>
-                        {/* <SelectItem value="canada">Canada</SelectItem>
-                        <SelectItem value="usa">
-                            United States of America
+                        <SelectItem value="current" className="font-bold">
+                            My Current Location
                         </SelectItem>
-                        <SelectItem value="mexico">Mexico</SelectItem> */}
                         {data.map((country: any) => {
                             return (
-                                <SelectItem value={country.name.common}>
+                                <SelectItem
+                                    value={country.name.common}
+                                    key={country.name.common}
+                                >
                                     {country.name.common}
                                 </SelectItem>
                             );
