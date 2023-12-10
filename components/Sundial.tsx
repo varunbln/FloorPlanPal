@@ -27,7 +27,7 @@ export default function Sundial() {
                         <img
                             src={imageUrl ? imageUrl : image}
                             alt="Floorplan"
-                            className="w-1/2 h-1/2"
+                            className="w-2/3 h-2/3"
                         />
                         <img
                             className={"absolute z-10 w-8 h-8"}
