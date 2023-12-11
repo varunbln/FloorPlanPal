@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect } from "react";
 import {
     Select,
     SelectContent,
@@ -24,30 +23,49 @@ export default function LocationPicker() {
     if (error) return <div>Failed to load countries.</div>;
 
     const handleChange = (value: any) => {
-        if (value === "current") {
+        if (value === "Current Location") {
             if ("geolocation" in navigator) {
                 // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
                 navigator.geolocation.getCurrentPosition(({ coords }) => {
                     const { latitude, longitude } = coords;
                     localStorage.setItem("latitude", latitude.toString());
                     localStorage.setItem("longitude", longitude.toString());
+                    localStorage.setItem("location", value);
                 });
             } else {
                 alert("Your browser does not support geolocation.");
             }
+        } else {
+            localStorage.setItem("location", value);
+            const country = data.find((country: any) => {
+                return country.name.common === value;
+            });
+            localStorage.setItem("latitude", country.capitalInfo.latlng[0]);
+            localStorage.setItem("longitude", country.capitalInfo.latlng[1]);
+            console.log(localStorage.getItem("latitude"));
+            console.log(localStorage.getItem("longitude"));
         }
     };
 
     return (
         <Select onValueChange={handleChange}>
             <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Choose Location" />
+                <SelectValue
+                    placeholder={
+                        localStorage.getItem("location")
+                            ? localStorage.getItem("location")
+                            : "Choose Location"
+                    }
+                />
             </SelectTrigger>
             <SelectContent>
-                {!data && <SelectItem>Loading...</SelectItem>}
+                {!data && <SelectItem value="loading">Loading...</SelectItem>}
                 {data && (
                     <SelectGroup>
-                        <SelectItem value="current" className="font-bold">
+                        <SelectItem
+                            value="Current Location"
+                            className="font-bold"
+                        >
                             My Current Location
                         </SelectItem>
                         {data.map((country: any) => {
