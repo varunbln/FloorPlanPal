@@ -7,7 +7,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
     metadataBase: new URL(defaultUrl),
-    title: "Sundial",
+    title: "FloorPlanPal",
     description:
         "Visualize the position of the sun on a floorplan, helping you understand sunlight exposure in your new home.",
 };
