@@ -42,8 +42,6 @@ export default function LocationPicker() {
             });
             localStorage.setItem("latitude", country.capitalInfo.latlng[0]);
             localStorage.setItem("longitude", country.capitalInfo.latlng[1]);
-            console.log(localStorage.getItem("latitude"));
-            console.log(localStorage.getItem("longitude"));
         }
     };
 
