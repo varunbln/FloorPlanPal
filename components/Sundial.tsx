@@ -25,7 +25,8 @@ export default function Sundial() {
         );
 
         const azimuth = 180 + (sun_position.azimuth * 180) / Math.PI;
-        console.log(azimuth, sun_position, chosen_time, latitude, longitude);
+        const altitude = (sun_position.altitude * 180) / Math.PI;
+        console.log(azimuth, altitude);
         const x_angle = time * 3.6;
         const y_angle = 90 - x_angle;
         return x_angle + "px " + y_angle + "px";
