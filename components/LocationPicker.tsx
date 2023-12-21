@@ -72,7 +72,9 @@ export default function LocationPicker() {
                     aria-expanded={open}
                     className="w-[200px] justify-between"
                 >
-                    {value ? value : "Select location..."}
+                    {localStorage.getItem("location")
+                        ? localStorage.getItem("location")
+                        : "Choose Location"}
                     <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
