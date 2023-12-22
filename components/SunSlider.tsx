@@ -18,7 +18,10 @@ export default function SunSlider({ setTime }: any) {
     };
     return (
         <div className="flex justify-center items-center w-full">
-            <img src="/sun_icon.svg" alt="Sun" className="w-6 h-6" />
+            <div className="flex justify-center items-center">
+                <div className="pr-2 font-medium text-sm">Sunrise</div>
+                <img src="/sun_icon.svg" alt="Sun" className="w-6 h-6" />
+            </div>
             <Slider
                 defaultValue={[12]}
                 min={5}
@@ -26,7 +29,10 @@ export default function SunSlider({ setTime }: any) {
                 className="!w-2/3 mx-2"
                 onValueChange={handleChange}
             />
-            <img src="/moon_icon.svg" alt="Sun" className="w-6 h-6" />
+            <div className="flex justify-center items-center">
+                <img src="/moon_icon.svg" alt="Sun" className="w-6 h-6" />
+                <div className="pl-2 font-medium text-sm">Sunset</div>
+            </div>
         </div>
     );
 }
