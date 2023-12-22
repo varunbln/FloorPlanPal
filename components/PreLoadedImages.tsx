@@ -5,10 +5,10 @@ export default function PreLoadedImages() {
     const router = useRouter();
 
     const images = [
+        "https://i.imgur.com/EGH7Xgs.png",
         "https://i.imgur.com/hwvKywi.jpg",
         "https://i.imgur.com/0umqzys.png",
         "https://i.imgur.com/0tGRy6L.png",
-        "https://i.imgur.com/EGH7Xgs.png",
     ];
 
     return (
