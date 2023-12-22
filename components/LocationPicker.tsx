@@ -34,6 +34,7 @@ export default function LocationPicker() {
                     localStorage.setItem("latitude", latitude.toString());
                     localStorage.setItem("longitude", longitude.toString());
                     localStorage.setItem("location", value);
+                    window.location.reload();
                 });
             } else {
                 alert("Your browser does not support geolocation.");
@@ -45,8 +46,8 @@ export default function LocationPicker() {
             });
             localStorage.setItem("latitude", country.capitalInfo.latlng[0]);
             localStorage.setItem("longitude", country.capitalInfo.latlng[1]);
+            window.location.reload();
         }
-        window.location.reload();
     };
 
     return (
