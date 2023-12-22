@@ -78,8 +78,8 @@ export default function Sundial() {
         console.log(azimuth, sun_position, chosen_time, latitude, longitude);
         const screenSize = Math.min(window.innerWidth, window.innerHeight);
         console.log(screenSize);
-        let radius = 200;
-        if (screenSize > 600) radius = 300;
+        let radius = 180;
+        if (screenSize > 600) radius = 280;
 
         const x = radius * Math.cos((azimuth - 90) * (Math.PI / 180));
         const y = radius * Math.sin((azimuth - 90) * (Math.PI / 180));
@@ -109,7 +109,7 @@ export default function Sundial() {
                         <img
                             src={imageUrl ? imageUrl : image}
                             alt="Floorplan"
-                            className="w-2/3 h-2/3 max-h-96 max-w-96"
+                            className="w-2/3 h-2/3 max-h-md max-w-md"
                         />
                         <img
                             className={"absolute z-10 w-8 h-8"}
