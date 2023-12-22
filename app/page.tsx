@@ -22,7 +22,7 @@ export default async function Index() {
     const isSupabaseConnected = canInitSupabaseClient();
 
     return (
-        <div className="flex-1 h-full w-full flex flex-col items-center">
+        <div className="flex h-full w-full flex flex-col items-center">
             <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
                 <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
                     <Logo />
