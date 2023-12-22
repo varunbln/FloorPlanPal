@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import UploadImage from "./UploadImage";
 import { useSearchParams } from "next/navigation";
 import SunSlider from "./SunSlider";
+import PreLoadedImages from "./PreLoadedImages";
 const SunCalc = require("suncalc3");
 
 export default function Sundial() {
@@ -92,8 +93,11 @@ export default function Sundial() {
     return (
         <div className="flex justify-center items-center w-full h-full">
             {!image && !imageUrl && (
-                <div className="pt-48 py-24 w-full h-full flex justify-center">
-                    <UploadImage setImage={setImage} />
+                <div className="pt-24 w-full h-full flex items-center justify-center">
+                    <div className="flex flex-col justify-center items-center">
+                        <UploadImage setImage={setImage} />
+                        <PreLoadedImages />
+                    </div>
                 </div>
             )}
             {(imageUrl || image) && (
@@ -105,7 +109,7 @@ export default function Sundial() {
                         <img
                             src={imageUrl ? imageUrl : image}
                             alt="Floorplan"
-                            className="w-2/3 h-2/3"
+                            className="w-2/3 h-2/3 max-h-96 max-w-96"
                         />
                         <img
                             className={"absolute z-10 w-8 h-8"}
