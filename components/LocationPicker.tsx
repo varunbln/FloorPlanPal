@@ -11,6 +11,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import useSWR from "swr";
+import { useRouter } from "next/navigation";
 
 //@ts-ignore
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -21,6 +22,8 @@ export default function LocationPicker() {
         fetcher
     );
     if (error) return <div>Failed to load countries.</div>;
+
+    const router = useRouter();
 
     const handleChange = (value: any) => {
         if (value === "Current Location") {
@@ -42,9 +45,8 @@ export default function LocationPicker() {
             });
             localStorage.setItem("latitude", country.capitalInfo.latlng[0]);
             localStorage.setItem("longitude", country.capitalInfo.latlng[1]);
-            console.log(localStorage.getItem("latitude"));
-            console.log(localStorage.getItem("longitude"));
         }
+        window.location.reload();
     };
 
     return (
