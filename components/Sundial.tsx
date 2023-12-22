@@ -110,7 +110,7 @@ export default function Sundial() {
     return (
         <div className="flex justify-center items-center w-full h-full">
             {!image && !imageUrl && (
-                <div className="pt-24 w-full h-full flex items-center justify-center">
+                <div className="w-full h-full flex-col items-center justify-center">
                     <div className="flex flex-col justify-center items-center">
                         <UploadImage setImage={setImage} />
                         <PreLoadedImages />
