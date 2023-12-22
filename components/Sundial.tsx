@@ -13,18 +13,6 @@ export default function Sundial() {
 
     const [time, setTime] = useState(12);
     const [timezone, setTimezone] = useState("");
-    const [sunStyle, setSunStyle] = useState<React.CSSProperties | undefined>(
-        undefined
-    );
-
-    useEffect(() => {
-        const updateSunStyle = async () => {
-            const angle = await getAngleFromTime(time);
-            setSunStyle({ transform: `translate(${angle})` });
-        };
-
-        updateSunStyle();
-    }, [time]);
 
     useEffect(() => {
         fetch(
@@ -35,6 +23,12 @@ export default function Sundial() {
         )
             .then((res) => res.json())
             .then((data) => {
+                if (data.data.iana_timezone === null) {
+                    alert(
+                        "This location is not supported yet. Please try another location."
+                    );
+                    return;
+                }
                 setTimezone(data.data.iana_timezone);
             });
     }, []);
@@ -60,7 +54,7 @@ export default function Sundial() {
         return date;
     };
 
-    const getAngleFromTime = async (time: number) => {
+    const getAngleFromTime = (time: number) => {
         console.log(timezone);
         const latitude = localStorage.getItem("latitude");
         const longitude = localStorage.getItem("longitude");
@@ -81,9 +75,17 @@ export default function Sundial() {
         );
         const azimuth = sun_position.azimuthDegrees;
         console.log(azimuth, sun_position, chosen_time, latitude, longitude);
-        const x_angle = time * 3.6;
-        const y_angle = 90 - x_angle;
-        return x_angle + "px " + y_angle + "px";
+        const radius = 300; // adjust the radius as needed
+
+        // Calculate the x and y coordinates based on the azimuth
+        const x = radius * Math.cos((azimuth - 90) * (Math.PI / 180));
+        const y = radius * Math.sin((azimuth - 90) * (Math.PI / 180));
+
+        // Convert the coordinates to pixel values
+        const x_angle = `${x}px`;
+        const y_angle = `${y}px`;
+
+        return `${x_angle} ${y_angle}`;
     };
 
     return (
@@ -103,7 +105,7 @@ export default function Sundial() {
                         />
                         <img
                             className={"absolute z-10 w-8 h-8"}
-                            style={sunStyle}
+                            style={{ translate: getAngleFromTime(time) }}
                             src="/sun.svg"
                             alt="Sun"
                         />
