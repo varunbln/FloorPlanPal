@@ -16,6 +16,23 @@ export default function Sundial() {
     const [timezone, setTimezone] = useState("");
 
     useEffect(() => {
+        if (
+            "geolocation" in navigator &&
+            (localStorage.getItem("latitude") === null ||
+                localStorage.getItem("longitude") === null)
+        ) {
+            // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+            navigator.geolocation.getCurrentPosition(({ coords }) => {
+                const { latitude, longitude } = coords;
+                localStorage.setItem("latitude", latitude.toString());
+                localStorage.setItem("longitude", longitude.toString());
+                localStorage.setItem("location", "Current Location");
+                window.location.reload();
+            });
+        }
+    }, []);
+
+    useEffect(() => {
         fetch(
             "/api/get_timezone?latitude=" +
                 localStorage.getItem("latitude") +
