@@ -75,13 +75,14 @@ export default function Sundial() {
         );
         const azimuth = sun_position.azimuthDegrees;
         console.log(azimuth, sun_position, chosen_time, latitude, longitude);
-        const radius = 300; // adjust the radius as needed
+        const screenSize = Math.min(window.innerWidth, window.innerHeight);
+        console.log(screenSize);
+        let radius = 200;
+        if (screenSize > 600) radius = 300;
 
-        // Calculate the x and y coordinates based on the azimuth
         const x = radius * Math.cos((azimuth - 90) * (Math.PI / 180));
         const y = radius * Math.sin((azimuth - 90) * (Math.PI / 180));
 
-        // Convert the coordinates to pixel values
         const x_angle = `${x}px`;
         const y_angle = `${y}px`;
 
@@ -97,7 +98,10 @@ export default function Sundial() {
             )}
             {(imageUrl || image) && (
                 <div className="flex flex-col justify-center items-center">
-                    <div className="w-full h-full relative flex items-center justify-center pt-48 py-24">
+                    <div className="w-full h-full py-24">
+                        <SunSlider setTime={setTime} />
+                    </div>
+                    <div className="w-full h-full relative flex items-center justify-center ">
                         <img
                             src={imageUrl ? imageUrl : image}
                             alt="Floorplan"
@@ -110,7 +114,6 @@ export default function Sundial() {
                             alt="Sun"
                         />
                     </div>
-                    <SunSlider setTime={setTime} />
                 </div>
             )}
         </div>
