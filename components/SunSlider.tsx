@@ -9,7 +9,9 @@ export default function SunSlider({ setTime }: any) {
             localStorage.getItem("latitude") === null ||
             localStorage.getItem("longitude") === null
         ) {
-            alert("Please select a location first.");
+            alert(
+                "Please select a location first from the top right of the page."
+            );
             return;
         }
         setTime(value[0]);
