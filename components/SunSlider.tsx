@@ -26,7 +26,7 @@ export default function SunSlider({ setTime }: any) {
                 defaultValue={[12]}
                 min={5}
                 max={19}
-                className="!w-2/3 mx-2"
+                className="!w-[55%] md:!w-2/3 mx-2"
                 onValueChange={handleChange}
             />
             <div className="flex justify-center items-center">
